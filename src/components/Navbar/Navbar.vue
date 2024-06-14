@@ -61,16 +61,31 @@
   <!--  Modal component  -->
   <div id="savedItemsModal" class="fixed inset-0 z-50 bg-gray-800 bg-opacity-75 flex items-center justify-center hidden">
     <!-- Modal content -->
-    <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-lg h-3/4">
-      <span id="closeModal" class="text-gray-500 hover:text-gray-800 cursor-pointer float-right">&times;</span>
-      <p>Some text in the Modal...</p>
+    <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-lg h-3/4 relative">
+        <span id="closeModal" class="text-gray-500 hover:text-gray-800 cursor-pointer absolute top-4 right-4">&times;</span>
+        <p class="text-center font-bold">Saved Items</p>
+        <div class="border-2 border-black p-6 text-center">
+          Saved names:
+          <ul>
+            <li>  {{ savedName }}  </li>
+          </ul>
+        </div>
     </div>
-  </div>
+    </div>
 </template>
 
 <script>
-export default {
-  name: 'Navbar',
+
+export default {  
+  data() {
+    return { 
+      savedName: '',
+    }
+  }, 
+  created() {
+    this.savedName = localStorage.getItem('savedName');
+  },
+  name: 'Navbar', 
   methods: {
     goToHome() {
       window.location.href = '/';
@@ -88,8 +103,9 @@ export default {
       if (modal) {
         modal.classList.add('hidden');
       }
-    }
-  },
+    },
+},
+
   mounted() {
     const redirect_to_home = document.querySelector('#redirectHome');
     if (redirect_to_home) {
@@ -104,7 +120,7 @@ export default {
     const closeModal = document.querySelector('#closeModal');
     if (closeModal) {
       closeModal.addEventListener('click', this.hideModal);
-    }
+    }   
   }
 };
 </script>

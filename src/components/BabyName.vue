@@ -116,8 +116,9 @@
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
+                  @click="saveName(Babyname)"
                   stroke="currentColor"
-                  class="h-7 w-7 font-bold hover:bg-black hover:text-white rounded-full p-1"
+                  class="h-7 w-7 font-bold hover:bg-black hover:text-white rounded-full p-1" 
                 >
                   <path
                     stroke-linecap="round"
@@ -177,7 +178,11 @@ export default {
           description: "Traveller; journey across",
           origin: "English",
         },
-        { name: "Khalil", description: "Honorable comrade", origin: "Arabic" },
+        { name: "Khalil",
+         description: "Honorable comrade",
+          origin: "Arabic" }, 
+
+
         { name: "Kevin", description: "Beautiful at birth", origin: "Gaelic" },
         { name: "Kirkland", description: "Church land", origin: "English" },
         { name: "Franklin", description: "Free man", origin: "English" },
@@ -202,6 +207,11 @@ export default {
           console.log("Failed to copy: ", err);
           alert("Failed to copy!");
         });
+    }, 
+
+      saveName(babyName) {  
+      localStorage.setItem('savedName',babyName.name);
+      alert('Name saved!')
     },
   },
   computed: {
@@ -211,6 +221,9 @@ export default {
     rightNames() {
       return this.names.slice(Math.ceil(this.names.length / 2));
     },
+
+    
+    
   },
 };
 </script>
