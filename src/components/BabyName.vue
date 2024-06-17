@@ -144,7 +144,8 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> 
+        <Notification v-if ="isNotificationVisible" @close = "hideNotification" />
       </div>
     </div>
     <button
@@ -161,6 +162,8 @@
 </template>
 
 <script> 
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 import eventBus from './EventHandler/eventBus.js';
 export default {
   name: "BabyName",
@@ -202,7 +205,15 @@ export default {
       navigator.clipboard
         .writeText(textToCopy)
         .then(() => {
-          alert("Copied to clipboard!");
+          // alert("Copied to clipboard!"); 
+          toast.success('Copied to clipboard!', {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            draggable: false,
+            progress: undefined,
+            theme: "light",
+          })
         })
         .catch((err) => {
           console.log("Failed to copy: ", err);
@@ -223,8 +234,17 @@ export default {
     savedNamesArray = []; 
   } 
 
-  if (savedNamesArray.includes(savedNames)) {
-    alert('Name already saved!');
+  if (savedNamesArray.includes(savedNames)) { 
+    
+    // alert('Name already saved!');
+    toast.error('Name already saved!', {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      draggable: false,
+      progress: undefined,
+      theme: "light",
+    });
     return;
   }
   
@@ -238,11 +258,24 @@ export default {
   eventBus.emit('name-saved', savedNamesArray);
   
   // Alert the user that the name has been saved
-  alert('Name saved!');  
+  // alert('Name saved!');  
 
   // Clear the input field
-  this.name = '';
-}
+  this.babyName = '';   
+
+  toast.success('Name saved!', {
+    position: "top-right",
+    autoClose: 2000,
+    hideProgressBar: false,
+    draggable: false,
+    progress: undefined,
+    theme: "light",
+  });
+
+  
+},
+
+ 
   },
   computed: {
     leftNames() {
