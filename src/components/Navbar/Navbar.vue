@@ -67,7 +67,7 @@
         <div class="border-2 border-black p-6 text-center">
           Saved names:
           <ul>
-            <li>  {{ savedName }}  </li>
+            <li v-for = "name in savedNames" :key="name">{{ name }}</li>
           </ul>
         </div>
     </div>
@@ -75,15 +75,13 @@
 </template>
 
 <script>
+import eventBus from '../EventHandler/eventBus.js';
 
-export default {  
+export default {   
   data() {
-    return { 
-      savedName: '',
-    }
-  }, 
-  created() {
-    this.savedName = localStorage.getItem('savedName');
+    return {
+      savedNames: [],
+    };  
   },
   name: 'Navbar', 
   methods: {
@@ -103,7 +101,17 @@ export default {
       if (modal) {
         modal.classList.add('hidden');
       }
-    },
+    }, 
+    retrieveNames(){
+      let savedNamesArray = JSON.parse(localStorage.getItem('savedNames')) || [];
+
+      if (!Array.isArray(savedNamesArray)) {
+        savedNamesArray = [];
+      } 
+      
+      this.savedNames = savedNamesArray;
+      console.log("retrieved Names:",this.savedNames);
+    }
 },
 
   mounted() {
@@ -121,7 +129,14 @@ export default {
     if (closeModal) {
       closeModal.addEventListener('click', this.hideModal);
     }   
+    {
+    // Automatically retrieve names when the component is mounted
+    this.retrieveNames();
+
+    eventBus.on('name-saved',this.retrieveNames);
   }
+  },
+  
 };
 </script>
 

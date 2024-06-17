@@ -160,7 +160,8 @@
   </div>
 </template>
 
-<script>
+<script> 
+import eventBus from './EventHandler/eventBus.js';
 export default {
   name: "BabyName",
 
@@ -209,10 +210,39 @@ export default {
         });
     }, 
 
-      saveName(babyName) {  
-      localStorage.setItem('savedName',babyName.name);
-      alert('Name saved!')
-    },
+    saveName(babyName) {
+  // Construct the savedNames variable with the babyName
+  let savedNames = `${babyName.name}`;
+  console.log("This is saved Names: ", savedNames);
+  
+  // Retrieve the existing saved names from local storage or initialize an empty array if none exist
+  let savedNamesArray = JSON.parse(localStorage.getItem('savedNames')) || []; 
+  
+  // Check if savedNamesArray is indeed an array
+  if (!Array.isArray(savedNamesArray)) {
+    savedNamesArray = []; 
+  } 
+
+  if (savedNamesArray.includes(savedNames)) {
+    alert('Name already saved!');
+    return;
+  }
+  
+  // Add the new name to the array
+  savedNamesArray.push(savedNames);
+  
+  // Save the updated array back to local storage
+  localStorage.setItem('savedNames', JSON.stringify(savedNamesArray));
+  
+  // Emit an event to notify parent or other components
+  eventBus.emit('name-saved', savedNamesArray);
+  
+  // Alert the user that the name has been saved
+  alert('Name saved!');  
+
+  // Clear the input field
+  this.name = '';
+}
   },
   computed: {
     leftNames() {
