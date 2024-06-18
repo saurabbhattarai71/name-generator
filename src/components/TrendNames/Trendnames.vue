@@ -1,39 +1,51 @@
 <template>
-  <ejs-chart id="container" :title='title' :primaryXAxis='primaryXAxis'>
-      <e-series-collection>
-          <e-series :dataSource='seriesData' type='Line' xName='month' yName='sales' name='Sales'> </e-series>
-      </e-series-collection>
-  </ejs-chart>
+  <Line :data="data" :options="options" />
 </template>
 
-<script>
-import { ChartComponent, SeriesCollectionDirective, SeriesDirective, LineSeries, Legend, Category } from "@syncfusion/ej2-vue-charts";
+<script lang="ts">
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js'
+import { Line } from 'vue-chartjs'
+
+ChartJS.register(
+  CategoryScale,
+   LinearScale, 
+   PointElement,
+   LineElement,
+    Title,
+    Tooltip,
+    Legend
+)
 
 export default {
-  name: "App",
+  name: 'App',
   components: {
-      'ejs-chart' : ChartComponent,
-      'e-series-collection' : SeriesCollectionDirective,
-      'e-series' : SeriesDirective
+    Line
   },
   data() {
-      return {
-        primaryXAxis: {
-          valueType: 'Category'
-        },
-        title: 'Sales Analysis',
-        seriesData: [
-          { month: 'Jan', sales: 35 }, { month: 'Feb', sales: 28 },
-          { month: 'Mar', sales: 34 }, { month: 'Apr', sales: 32 },
-          { month: 'May', sales: 40 }, { month: 'Jun', sales: 32 },
-          { month: 'Jul', sales: 35 }, { month: 'Aug', sales: 55 },
-          { month: 'Sep', sales: 38 }, { month: 'Oct', sales: 30 },
-          { month: 'Nov', sales: 25 }, { month: 'Dec', sales: 32 }
-        ]
-      };
-  },
-  provide: {
-      chart: [ LineSeries, Legend, Category ]
-  },
-};
+    return {
+      data: {
+        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+        datasets: [
+          { 
+          label: 'Data One',
+          backgroundColor: '#f87979',
+          data: [40, 20, 12, 39, 10, 40, 39] }
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: true,
+      },
+    }
+  }
+}
 </script>
