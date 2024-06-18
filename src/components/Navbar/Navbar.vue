@@ -28,7 +28,7 @@
           </svg>
         </div>
         <div class="hidden md:flex space-x-4 gap-5">
-          <a href="#" class="font-[inter] text-gray-600 gap-2 hover:text-black hover:font-bold hover:bg-gray-100 p-2 rounded">Trends</a>
+          <a href="/trends" class="font-[inter] text-gray-600 gap-2 hover:text-black hover:font-bold hover:bg-gray-100 p-2 rounded">Trends</a>
           <a href="#" class="font-[inter] text-gray-600 gap-2 hover:text-black hover:font-bold hover:bg-gray-100 p-2 rounded">Baby Names</a>
           <a href="#" class="font-[inter] text-gray-600 gap-2 hover:text-black hover:font-bold hover:bg-gray-100 p-2 rounded">Ship Names</a>
           <a href="#" class="font-[inter] text-gray-600 gap-2 hover:text-black hover:font-bold hover:bg-gray-100 p-2 rounded">All Categories</a>
