@@ -61,17 +61,24 @@
   <!--  Modal component  -->
   <div id="savedItemsModal" class="fixed inset-0 z-50 bg-gray-800 bg-opacity-75 flex items-center justify-center hidden">
     <!-- Modal content -->
-    <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-lg h-3/4 relative">
-        <span id="closeModal" class="text-gray-500 hover:text-gray-800 cursor-pointer absolute top-4 right-4">&times;</span>
-        <p class="text-center font-bold">Saved Items</p>
-        <div class="border-2 border-black p-6 text-center">
-          Saved names:
-          <ul>
-            <li v-for = "name in savedNames" :key="name">{{ name }}</li>
-          </ul>
+    <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-2xl h-3/4 relative">
+      <span id="closeModal" class="text-gray-500 hover:text-gray-800 cursor-pointer absolute top-4 right-4 text-2xl">&times;</span>
+      <p class="text-center font-bold text-2xl">Saved Items</p>
+      <div class="border-2 border-black p-6 text-center">
+        Saved names:
+        <div class="border-t-2 border-gray-300 mt-4 pt-4">
+          <div class="grid grid-cols-2 gap-4">
+            <div v-for="(name, index) in savedNames" :key="index" class="flex items-center justify-between bg-gray-100 p-4 rounded-lg shadow-sm">
+              <button @click="deleteName(index)" class="text-red-500 hover:text-red-800 font-bold mr-2">&times;</button>
+              <span class="flex-1 text-center">{{ name }}</span>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-    </div>
+  </div>
+
+
 </template>
 
 <script>
@@ -111,7 +118,13 @@ export default {
       
       this.savedNames = savedNamesArray;
       console.log("retrieved Names:",this.savedNames);
-    }
+    },
+
+    deleteName(name) {
+      this.savedNames.splice(name,1);
+      localStorage.setItem('savedNames', JSON.stringify(this.savedNames));
+      console.log("deleted name:", name);
+    },
 },
 
   mounted() {

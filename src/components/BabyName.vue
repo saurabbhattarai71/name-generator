@@ -114,7 +114,7 @@
               <div class="flex items-center space-x-2 ml-4">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
+                  fill=none
                   viewBox="0 0 24 24"
                   @click="saveName(Babyname)"
                   stroke="currentColor"
@@ -145,7 +145,6 @@
             </div>
           </div>
         </div> 
-        <Notification v-if ="isNotificationVisible" @close = "hideNotification" />
       </div>
     </div>
     <button
@@ -262,6 +261,8 @@ export default {
 
   // Clear the input field
   this.babyName = '';   
+
+
 
   toast.success('Name saved!', {
     position: "top-right",
