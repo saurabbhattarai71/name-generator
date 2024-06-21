@@ -72,11 +72,12 @@ export default {
         maintainAspectRatio: true,
       },
     };
-  }, 
-  
+  },
+
+ 
   methods: {
-    async search() { 
-      this.loaded = true;
+    async search() {  
+      this.loaded = false; 
       try {
         const response = await axios.get(
           `http://192.168.1.160/api/v1/names?name=${this.name}`,
@@ -106,11 +107,11 @@ export default {
         this.chartData.labels = labels;
         this.chartData.datasets[0].data = data;  
 
-        this.loaded = false;
-
+        
+        this.loaded = true;
         console.log("charData:", this.chartData);
         console.log("chartOptions:", this.chartOptions);
-
+        
         console.log("labels:", labels, "data:", data);
       } catch (error) {
         console.log("Error is:", error);

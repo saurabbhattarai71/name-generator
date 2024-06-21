@@ -2,7 +2,7 @@
   <div class="min-h-screen flex flex-col items-center bg-gray-100 p-4">
     <div class="flex items-center">
       <img
-        src="./TeenyiconsAddressBookSolid.png"
+        src="./icons_service/Baby.png"
         alt="Baby Image"
         class="w-24 h-24 rounded-full"
       />
@@ -233,7 +233,9 @@ export default {
     savedNamesArray = []; 
   } 
 
-  if (savedNamesArray.includes(savedNames)) { 
+  if (savedNamesArray.includes(savedNames)) {  
+
+    
     
     // alert('Name already saved!');
     toast.error('Name already saved!', {
